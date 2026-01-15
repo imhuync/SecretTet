@@ -15,7 +15,7 @@ const LuckyMoneyGame: React.FC<Props> = ({ isVisible }) => {
 
   // Target Date: Jan 1st, 2026 (Lunar Calendar). 
   // Lunar New Year 2026 falls on February 17, 2026 (Gregorian).
-  const TARGET_DATE = new Date('2026-01-15T00:00:00');
+  const TARGET_DATE = new Date('2026-02-17T00:00:00');
 
   useEffect(() => {
     // Check Date logic
