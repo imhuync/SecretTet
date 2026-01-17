@@ -292,7 +292,7 @@ const FortuneSticks: React.FC = () => {
             </div>
             <div className="flex flex-col">
               <h2 className="font-extrabold text-gray-900 dark:text-white text-base sm:text-lg leading-none tracking-tight">Gieo Quẻ 2026</h2>
-              <span className="text-[10px] font-bold tracking-[0.2em] text-gray-400 uppercase mt-1">Xuân Ất Tỵ</span>
+              <span className="text-[10px] font-bold tracking-[0.2em] text-gray-400 uppercase mt-1">Xuân Bính Ngọ</span>
             </div>
           </div>
 
