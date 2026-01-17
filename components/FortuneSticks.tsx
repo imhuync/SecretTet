@@ -17,8 +17,8 @@ const FORTUNES: Fortune[] = [
     id: 1,
     title: "Vạn Sự Như Ý",
     type: "Đại Cát",
-    poem: "Xuân sang lộc biếc trổ cành\nCông danh rạng rỡ, tình thành duyên tơ",
-    meaning: "Năm nay làm gì cũng thuận lợi. Tiền bạc rủng rỉnh, tình duyên nở rộ. Cứ tự tin mà tỏa sáng nhé!",
+    poem: "Xuân sang lộc biếc trổ cành\nCông danh rạng rỡ, duyên lành kết tơ",
+    meaning: "Năm nay làm gì cũng 'trộm vía' hanh thông. Tiền bạc dư dả, tình cảm thăng hoa. Cứ tự tin là chính mình, hào quang sẽ theo đuổi bạn!",
     luckyNumber: 88,
   },
   {
@@ -26,7 +26,7 @@ const FORTUNES: Fortune[] = [
     title: "Phúc Lộc Song Toàn",
     type: "Thượng Cát",
     poem: "Ngựa phi đường xa không mỏi gối\nChí lớn vươn cao ắt thành công",
-    meaning: "Năng lượng dồi dào giúp bạn bứt phá. Đừng ngại thay đổi, cơ hội lớn đang chờ phía trước.",
+    meaning: "Năng lượng bên trong bạn đang cực kỳ dồi dào. Đừng ngại bước ra khỏi vùng an toàn, những cơ hội 'đổi đời' đang chờ bạn nắm bắt đấy.",
     luckyNumber: 68,
   },
   {
@@ -34,7 +34,7 @@ const FORTUNES: Fortune[] = [
     title: "Bình An Vô Sự",
     type: "Trung Cát",
     poem: "Gió xuân nhè nhẹ thổi qua song\nTâm an vạn sự ắt hanh thông",
-    meaning: "Một năm chữa lành (healing). Tập trung vào bản thân, sức khỏe tinh thần là ưu tiên hàng đầu.",
+    meaning: "Một năm dành cho sự chữa lành và thấu hiểu bản thân. Không cần vội vã, chỉ cần tâm thản nhiên thì mọi khó khăn cũng hóa dịu dàng.",
     luckyNumber: 22,
   },
   {
@@ -42,7 +42,7 @@ const FORTUNES: Fortune[] = [
     title: "Quý Nhân Phù Trợ",
     type: "Thượng Cát",
     poem: "Ra đường gặp bạn hiền nâng đỡ\nVề nhà gia đạo ấm êm vui",
-    meaning: "Có người giúp đỡ trong công việc. Networking là chìa khóa của năm nay.",
+    meaning: "Năm của những mối quan hệ chất lượng. Bạn sẽ gặp được những 'người thầy', người bạn giúp xoay chuyển cục diện công việc một cách bất ngờ.",
     luckyNumber: 9,
   },
   {
@@ -50,8 +50,48 @@ const FORTUNES: Fortune[] = [
     title: "Tình Duyên Rực Rỡ",
     type: "Tiểu Cát",
     poem: "Hoa đào nở rộ đón xuân sang\nNgười thương chung lối, mộng huy hoàng",
-    meaning: "Nếu đang độc thân, tín hiệu vũ trụ bảo bạn sắp thoát ế. Nếu có đôi, tình cảm càng thêm gắn bó.",
+    meaning: "Tín hiệu vũ trụ bảo rằng bạn sắp tìm thấy nửa kia rồi. Nếu đã có đôi, hai bạn sẽ có những bước tiến triển cực kỳ ngọt ngào.",
     luckyNumber: 14,
+  },
+  {
+    id: 6,
+    title: "Tiền Tài Tấn Tới",
+    type: "Đại Cát",
+    poem: "Lộc vàng gõ cửa sớm mai\nKinh doanh đắc lợi, lộc tài bủa vây",
+    meaning: "Ví tiền năm nay sẽ 'dày' lên đáng kể. Các khoản đầu tư hoặc nghề tay trái sẽ mang lại lợi nhuận ngoài mong đợi. Nhớ quản lý chi tiêu tốt nhé!",
+    luckyNumber: 39,
+  },
+  {
+    id: 7,
+    title: "Học Vấn hanh thông",
+    type: "Thượng Cát",
+    poem: "Bút nghiên rèn luyện bấy lâu\nBảng vàng chói lọi, dẫn đầu vinh quang",
+    meaning: "Tin vui cho việc học hành, thi cử hoặc nâng cao kỹ năng. Sự nỗ lực âm thầm bấy lâu của bạn sẽ sớm gặt hái kết quả rực rỡ.",
+    luckyNumber: 79,
+  },
+  {
+    id: 8,
+    title: "Sức Khỏe Dồi Dào",
+    type: "Trung Cát",
+    poem: "Thân cường thể kiện đón xuân tươi\nMỗi ngày một nụ cười rạng rỡ",
+    meaning: "Sức khỏe là vốn quý nhất và năm nay bạn sẽ thấy mình tràn đầy sức sống. Duy trì thói quen tốt để duy trì 'phong độ' đỉnh cao này nhé.",
+    luckyNumber: 11,
+  },
+  {
+    id: 9,
+    title: "Vạn Dặm Bình An",
+    type: "Tiểu Cát",
+    poem: "Chân đi vạn dặm thỏa đam mê\nĐi tươi về tốt, mọi bề ấm êm",
+    meaning: "Một năm lý tưởng cho những chuyến đi xa. Dù là đi du lịch hay công tác, mỗi cung đường bạn đi qua đều để lại những trải nghiệm vô giá.",
+    luckyNumber: 55,
+  },
+  {
+    id: 10,
+    title: "Gia Hòa Vạn Sự Hưng",
+    type: "Trung Cát",
+    poem: "Cửa nhà êm ấm, tiếng cười vang\nHạnh phúc đong đầy, đón lộc sang",
+    meaning: "Gia đình chính là điểm tựa lớn nhất của bạn trong năm nay. Sự đồng lòng giữa các thành viên sẽ giúp mọi việc lớn nhỏ trong nhà đều xuôi chèo mát mái.",
+    luckyNumber: 2,
   },
 ];
 
@@ -266,7 +306,7 @@ const FortuneSticks: React.FC = () => {
                   onClick={closeModal}
                   className="w-full py-3 sm:py-3.5 rounded-xl sm:rounded-2xl bg-gradient-to-r from-red-600 via-orange-600 to-red-600 dark:from-amber-200 dark:via-yellow-500 dark:to-amber-200 text-white dark:text-red-950 font-extrabold text-xs sm:text-sm tracking-widest uppercase shadow-lg shadow-orange-500/25 hover:shadow-orange-500/40 active:scale-[0.98] transition-all"
                 >
-                  Hoan Hỉ Đón Nhận
+                  Hoan Hỉ Claim
                 </button>
               </div>
             </div>
@@ -287,7 +327,7 @@ const FortuneSticks: React.FC = () => {
         {/* Top bar (not absolute on mobile to avoid extra height quirks) */}
         <div className="flex justify-between items-center mb-4 md:mb-6">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-[#FF512F] to-[#DD2476] flex items-center justify-center text-white shadow-lg shadow-red-500/20 -rotate-3">
+            <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-orange-500 to-red-500 flex items-center justify-center text-white shadow-lg shadow-red-500/20 -rotate-3">
               <Scroll size={18} strokeWidth={2.5} />
             </div>
             <div className="flex flex-col">
@@ -370,10 +410,10 @@ const FortuneSticks: React.FC = () => {
               Xin quẻ đầu năm
             </h1>
             <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 leading-relaxed font-medium">
-              Lắc nhẹ ống xăm để nhận thông điệp vũ trụ gửi đến bạn.
+              Lắc ống xăm để nhận thông điệp từ vũ trụ 💕.
             </p>
             <p className="text-red-600/80 dark:text-red-400 font-handwriting text-base sm:text-lg">
-              "Thành tâm tất linh ứng"
+              "Thành tâm ắt linh ứng"
             </p>
 
             <div className="pt-1 md:pt-2">

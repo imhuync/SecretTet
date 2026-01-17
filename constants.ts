@@ -11,19 +11,19 @@ export const MEMORIES: FriendMemory[] = [
   },
   {
     id: 2,
-    imageUrl: "https://i.ibb.co/KcY1Dtd8/photo-2026-01-15-17-14-01.jpg",
+    imageUrl: "https://i.ibb.co/nqzLystR/chi.jpg",
     name: "Kim Chi",
     letter: "Coffee dates and endless rants. You're the best listener I know. Thank you for being my rock through the chaos.",
     greeting: "Wishing you a year full of perfect brews and peaceful moments.",
-    personalizedPhotoUrl: "https://i.ibb.co/KcY1Dtd8/photo-2026-01-15-17-14-01.jpg"
+    personalizedPhotoUrl: "https://i.ibb.co/nqzLystR/chi.jpg"
   },
   {
     id: 3,
-    imageUrl: "https://i.ibb.co/Z0vsQ27/photo-2026-01-15-17-13-59.jpg",
+    imageUrl: "https://i.ibb.co/YFT749nN/nhung.jpg",
     name: "Nhung",
     letter: "That road trip was legendary. I still laugh about the flat tire incident. Let's go somewhere even crazier this year.",
     greeting: "May your path be clear and your adventures endless.",
-    personalizedPhotoUrl: "https://i.ibb.co/Z0vsQ27/photo-2026-01-15-17-13-59.jpg"
+    personalizedPhotoUrl: "https://i.ibb.co/YFT749nN/nhung.jpg"
   },
   {
     id: 4,

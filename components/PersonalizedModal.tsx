@@ -150,7 +150,7 @@ const PersonalizedModal: React.FC<Props> = ({ memory, onClose, onComplete }) => 
           {step === 0 && (
             <div className="animate-fade-in flex flex-col items-center gap-6">
               <h3 className="text-2xl font-bold text-lunar-red dark:text-lunar-gold mb-2">
-                A Moment With {memory.name}
+                A Moment Of {memory.name}
               </h3>
               <div className="relative group">
                 <div className="absolute -inset-1 bg-gradient-to-r from-lunar-red to-lunar-gold rounded-2xl blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200"></div>
@@ -162,7 +162,7 @@ const PersonalizedModal: React.FC<Props> = ({ memory, onClose, onComplete }) => 
                   decoding="async"
                 />
               </div>
-              <p className="text-sm opacity-70 mt-4 italic">Click next to read a message.</p>
+              <p className="text-sm opacity-70 mt-4 italic">Bấm tiếp tục để đọc thư.</p>
             </div>
           )}
 
@@ -188,7 +188,7 @@ const PersonalizedModal: React.FC<Props> = ({ memory, onClose, onComplete }) => 
                 </p>
 
                 <p className="text-right mt-5 sm:mt-6 font-bold text-lunar-red font-sans">
-                  - From Your Friend
+                  - From Huy -
                 </p>
               </div>
             </div>
@@ -217,7 +217,7 @@ const PersonalizedModal: React.FC<Props> = ({ memory, onClose, onComplete }) => 
             className="flex items-center gap-2 px-6 py-3 bg-lunar-red hover:bg-red-700 text-white rounded-full font-bold transition-all hover:gap-4 shadow-lg active:scale-[0.98]"
             type="button"
           >
-            {step === 2 ? 'Collect Gift' : 'Next'} <ArrowRight size={18} />
+            {step === 2 ? 'Nhận quà' : 'Tiếp tục'} <ArrowRight size={18} />
           </button>
         </div>
       </div>

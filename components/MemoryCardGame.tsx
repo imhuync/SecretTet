@@ -13,9 +13,9 @@ interface Card {
 const CARD_ITEMS = [
   { emoji: '🧧', color: 'text-red-500' },      // Red Envelope
   { emoji: '🏮', color: 'text-orange-500' },   // Lantern
-  { emoji: '🦁', color: 'text-yellow-600' },   // Lion
+  { emoji: '🐴', color: 'text-yellow-600' },   // Horse
   { emoji: '🌸', color: 'text-pink-400' },     // Blossom
-  { emoji: '🍊', color: 'text-orange-400' },   // Tangerine
+  { emoji: '🍬', color: 'text-orange-400' },   // Tangerine
   { emoji: '💰', color: 'text-yellow-500' },   // Gold Bag
   { emoji: '🪭', color: 'text-purple-500' },   // Fan
   { emoji: '🧨', color: 'text-red-600' },      // Firecracker
@@ -33,6 +33,13 @@ const MemoryCardGame: React.FC = () => {
   useEffect(() => {
     shuffleCards();
   }, []);
+  useEffect(() => {
+  const params = new URLSearchParams(window.location.search);
+  if (params.get("win") === "1") {
+    setGameWon(true);
+    handleWin();
+  }
+}, []);
 
   const shuffleCards = () => {
     // Duplicate items to make pairs
@@ -109,7 +116,7 @@ const MemoryCardGame: React.FC = () => {
         setCards(resetCards);
         setFlippedIds([]);
         setIsProcessing(false);
-      }, 1000);
+      }, 600);
     }
   };
 
@@ -152,23 +159,26 @@ const MemoryCardGame: React.FC = () => {
         {/* Header */}
         <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4 z-10 relative">
           <div className="flex items-center gap-4">
-             <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-pink-500 to-rose-500 flex items-center justify-center text-white shadow-lg shadow-pink-500/30 transform rotate-3">
-                <BrainCircuit size={24} strokeWidth={2.5} />
+             <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-red-500 to-orange-500 flex items-center justify-center text-white shadow-lg shadow-pink-500/30 transform rotate-3">
+                <img style={{ width: '40px', height: '40px' }} src="https://i.ibb.co/ZpkKRmDt/logolatthe.png" alt="Lật thẻ Tết" />
+                {/* <BrainCircuit size={24} strokeWidth={2.5} /> */}
             </div>
             <div>
-                <h2 className="text-2xl md:text-3xl font-extrabold text-gray-900 dark:text-white font-serif">Hội Xuân Khoe Sắc</h2>
-                <p className="text-xs md:text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Thử tài trí nhớ</p>
+                <h2 className="font-extrabold text-gray-900 dark:text-white text-base sm:text-lg leading-none tracking-tight">Lật Thẻ 2026</h2>
+                <p className="text-[10px] font-bold tracking-[0.2em] text-gray-400 uppercase mt-1">Luyện não lấy học bổng:D</p>
+                {/* <h2 className="text-2xl md:text-3xl font-extrabold text-gray-900 dark:text-white font-serif">Lật Thẻ 2026</h2>
+                <p className="text-xs md:text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Luyện não lấy học bổng:D</p> */}
             </div>
           </div>
 
           <div className="flex items-center gap-6 bg-white/40 dark:bg-black/20 p-2 px-6 rounded-full border border-white/20 backdrop-blur-md">
              <div className="flex flex-col items-center">
-                <span className="text-[10px] uppercase font-bold text-gray-400">Moves</span>
+                <span className="text-[10px] uppercase font-bold text-gray-400">Bước</span>
                 <span className="text-xl font-bold text-gray-800 dark:text-white font-mono leading-none">{moves}</span>
              </div>
              <div className="w-px h-8 bg-gray-300 dark:bg-white/10"></div>
              <div className="flex flex-col items-center">
-                <span className="text-[10px] uppercase font-bold text-gray-400">Pairs</span>
+                <span className="text-[10px] uppercase font-bold text-gray-400">Cặp</span>
                 <span className="text-xl font-bold text-lunar-red dark:text-lunar-gold font-mono leading-none">{matchedCount}/{CARD_ITEMS.length}</span>
              </div>
              <button 
@@ -185,14 +195,14 @@ const MemoryCardGame: React.FC = () => {
         <div className="relative">
              {/* Win Overlay */}
              {gameWon && (
-                <div className="absolute inset-0 z-50 flex items-center justify-center animate-fade-in">
+                <div className="fixed inset-0 z-50 flex items-center justify-center animate-fade-in">
                     <div className="absolute inset-0 bg-white/60 dark:bg-black/60 backdrop-blur-md rounded-3xl" />
-                    <div className="relative bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-black p-8 rounded-3xl shadow-2xl border border-white/20 text-center transform animate-bounce-slow max-w-sm mx-4">
+                    <div className="relative bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-black p-8 rounded-3xl shadow-2xl border border-white/20 text-center transform max-w-sm mx-4">
                         <div className="w-20 h-20 bg-lunar-gold rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg shadow-yellow-500/50">
                             <Trophy size={40} className="text-white" />
                         </div>
-                        <h3 className="text-3xl font-bold text-lunar-red mb-2">Xuất Sắc!</h3>
-                        <p className="text-gray-600 dark:text-gray-300 mb-6">Bạn đã hoàn thành thử thách trong <span className="font-bold">{moves}</span> bước.</p>
+                        <h3 className="text-3xl font-bold text-lunar-red mb-2">Trí nhớ tốt đấy😃</h3>
+                        <p className="text-gray-600 dark:text-gray-300 mb-6">Thắng trong <span className="font-bold">{moves}</span> bước.</p>
                         <button 
                             onClick={shuffleCards}
                             className="px-8 py-3 bg-lunar-red text-white rounded-xl font-bold shadow-lg hover:bg-red-700 transition-all hover:-translate-y-1"
