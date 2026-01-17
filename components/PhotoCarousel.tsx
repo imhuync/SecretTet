@@ -6,7 +6,7 @@ interface Props {
   onSelect: (memory: FriendMemory) => void;
 }
 
-const AUTOPLAY_MS = 5000;
+const AUTOPLAY_MS = 3000;
 const SWIPE_THRESHOLD = 50;
 
 const mod = (n: number, m: number) => ((n % m) + m) % m;
