@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState, useCallback } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { FriendMemory } from "../types";
 
 interface Props {
@@ -6,8 +6,9 @@ interface Props {
   onSelect: (memory: FriendMemory) => void;
 }
 
-const AUTOPLAY_MS = 2000;
-const SWIPE_THRESHOLD = 50;
+const AUTOPLAY_MS = 3000;
+const DRAG_START_THRESHOLD = 6; // px: chỉ coi là kéo khi vượt ngưỡng nhỏ này
+const SWIPE_THRESHOLD = 50; // px: đủ xa thì mới đổi ảnh
 
 const mod = (n: number, m: number) => ((n % m) + m) % m;
 
@@ -18,12 +19,10 @@ async function preloadAndDecode(url: string) {
   img.loading = "eager";
   img.src = url;
 
-  // decode() giúp tránh khựng lúc ảnh được đưa lên màn hình
-  // fallback cho browser không hỗ trợ
   try {
     if ("decode" in img) await (img as any).decode();
   } catch {
-    // ignore decode error (có thể do CORS / cache)
+    // ignore (CORS/cache/decode failure)
   }
 }
 
@@ -36,15 +35,18 @@ const PhotoCarousel: React.FC<Props> = ({ memories, onSelect }) => {
   const timerRef = useRef<number | null>(null);
 
   // Gesture refs
+  const pointerIdRef = useRef<number | null>(null);
+  const pendingRef = useRef(false); // đang chờ xác định click hay drag
+  const draggingRef = useRef(false);
+  const didSwipeRef = useRef(false);
+
   const startX = useRef<number | null>(null);
   const lastX = useRef<number | null>(null);
-  const dragging = useRef(false);
-  const didSwipe = useRef(false);
 
-  // tránh preload lại cùng 1 url
+  // Preload cache
   const preloadedRef = useRef<Set<string>>(new Set());
 
-  // clamp index khi memories đổi
+  // Clamp activeIndex when memories change
   useEffect(() => {
     if (len === 0) return;
     setActiveIndex((i) => mod(i, len));
@@ -63,19 +65,17 @@ const PhotoCarousel: React.FC<Props> = ({ memories, onSelect }) => {
   const prev = indices.prev >= 0 ? memories[indices.prev] : null;
   const next = indices.next >= 0 ? memories[indices.next] : null;
 
-  // Preload + decode trước next/prev để chuyển ảnh không khựng
+  // Preload + decode current/next/prev => chuyển ảnh không khựng
   useEffect(() => {
     const urls = [cur?.imageUrl, next?.imageUrl, prev?.imageUrl].filter(Boolean) as string[];
-
     urls.forEach((url) => {
       if (preloadedRef.current.has(url)) return;
       preloadedRef.current.add(url);
-      // không await để không block UI
       preloadAndDecode(url);
     });
   }, [cur?.imageUrl, next?.imageUrl, prev?.imageUrl]);
 
-  // Autoplay: dùng setTimeout để “5s sau mỗi lần chuyển”
+  // Autoplay (3s)
   const stopTimer = useCallback(() => {
     if (timerRef.current) {
       window.clearTimeout(timerRef.current);
@@ -102,32 +102,61 @@ const PhotoCarousel: React.FC<Props> = ({ memories, onSelect }) => {
     if (el) el.style.cursor = value;
   };
 
-  // Pointer events (mượt hơn, 1 bộ handler cho cả touch + mouse)
+  // Pointer handlers: FIX click desktop (không capture ngay)
   const onPointerDown = (e: React.PointerEvent) => {
     if (len <= 1) return;
-    (e.currentTarget as HTMLDivElement).setPointerCapture(e.pointerId);
 
-    dragging.current = true;
-    didSwipe.current = false;
+    pointerIdRef.current = e.pointerId;
+    pendingRef.current = true;
+    draggingRef.current = false;
+    didSwipeRef.current = false;
+
     startX.current = e.clientX;
     lastX.current = e.clientX;
 
-    setIsPaused(true);
-    setCursor("grabbing");
+    // KHÔNG pause ngay -> để click còn hoạt động
   };
 
   const onPointerMove = (e: React.PointerEvent) => {
-    if (!dragging.current) return;
-    lastX.current = e.clientX;
+    if (!pendingRef.current) return;
 
+    lastX.current = e.clientX;
     const dx = (startX.current ?? 0) - (lastX.current ?? 0);
-    if (Math.abs(dx) > 8) didSwipe.current = true; // deadzone chống tap nhầm
+
+    // vượt ngưỡng nhỏ => bắt đầu drag thật sự
+    if (!draggingRef.current && Math.abs(dx) >= DRAG_START_THRESHOLD) {
+      draggingRef.current = true;
+      setIsPaused(true);
+      setCursor("grabbing");
+
+      // chỉ capture khi đã drag thật sự => click desktop vẫn ăn
+      try {
+        (e.currentTarget as HTMLDivElement).setPointerCapture(e.pointerId);
+      } catch {
+        // ignore
+      }
+    }
+
+    if (draggingRef.current && Math.abs(dx) > 8) {
+      didSwipeRef.current = true;
+    }
   };
 
-  const finishDrag = () => {
-    if (!dragging.current) return;
+  const finishPointer = () => {
+    if (!pendingRef.current) return;
 
-    dragging.current = false;
+    pendingRef.current = false;
+
+    // Nếu không drag => đây là click/tap => đừng đụng activeIndex/pause
+    if (!draggingRef.current) {
+      startX.current = null;
+      lastX.current = null;
+      pointerIdRef.current = null;
+      return;
+    }
+
+    // Nếu có drag
+    draggingRef.current = false;
     setIsPaused(false);
     setCursor("grab");
 
@@ -140,17 +169,18 @@ const PhotoCarousel: React.FC<Props> = ({ memories, onSelect }) => {
 
     startX.current = null;
     lastX.current = null;
+    pointerIdRef.current = null;
   };
 
-  const onPointerUp = () => finishDrag();
-  const onPointerCancel = () => finishDrag();
+  const onPointerUp = () => finishPointer();
+  const onPointerCancel = () => finishPointer();
   const onPointerLeave = () => {
-    if (dragging.current) finishDrag();
+    if (pendingRef.current) finishPointer();
   };
 
   const handleClickCard = (memory: FriendMemory, isCurrent: boolean) => {
     if (!isCurrent) return;
-    if (didSwipe.current) return;
+    if (didSwipeRef.current) return; // vừa swipe thì block click
     onSelect(memory);
   };
 
@@ -159,7 +189,6 @@ const PhotoCarousel: React.FC<Props> = ({ memories, onSelect }) => {
   const renderCard = (mem: FriendMemory, position: "prev" | "cur" | "next") => {
     const isCurrent = position === "cur";
 
-    // Tránh transition-all (tốn), chỉ animate transform/opacity/filter
     let className =
       "absolute rounded-2xl overflow-hidden border-4 border-white/30 shadow-2xl " +
       "transition-[transform,opacity,filter] duration-700 ease-out will-change-transform";
@@ -190,7 +219,6 @@ const PhotoCarousel: React.FC<Props> = ({ memories, onSelect }) => {
           draggable={false}
           decoding="async"
           loading={isCurrent ? "eager" : "lazy"}
-          // Tối ưu paint
           className="w-full h-full object-cover pointer-events-none select-none"
         />
         <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 text-white">
@@ -212,7 +240,7 @@ const PhotoCarousel: React.FC<Props> = ({ memories, onSelect }) => {
       onPointerLeave={onPointerLeave}
     >
       <div className="w-full h-full flex items-center justify-center relative overflow-hidden rounded-3xl glass-panel">
-        {/* Background blur: blur-3xl rất nặng -> blur-2xl + không transition-all */}
+        {/* Background blur: giảm nặng GPU (blur-2xl) */}
         <div
           className="absolute inset-0 bg-cover bg-center opacity-30 blur-2xl"
           style={{
@@ -228,6 +256,7 @@ const PhotoCarousel: React.FC<Props> = ({ memories, onSelect }) => {
         </div>
       </div>
 
+      {/* Indicators */}
       <div className="absolute -bottom-8 left-0 right-0 flex justify-center gap-2">
         {memories.map((_, idx) => (
           <button
