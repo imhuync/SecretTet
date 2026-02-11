@@ -23,7 +23,7 @@
 //   return (
 //     <div className="fixed inset-0 z-[70] flex items-center justify-center p-4">
 //       <div className="absolute inset-0 bg-black/60 backdrop-blur-md" onClick={onClose} />
-      
+
 //       <div className="relative w-full max-w-2xl glass-panel rounded-3xl overflow-hidden shadow-2xl min-h-[500px] flex flex-col">
 //         <button 
 //           onClick={onClose}
@@ -33,7 +33,7 @@
 //         </button>
 
 //         <div className="flex-1 flex flex-col items-center justify-center p-8 text-center">
-            
+
 //           {/* STEP 0: PHOTO */}
 //           {step === 0 && (
 //             <div className="animate-fade-in flex flex-col items-center gap-6">
@@ -100,7 +100,7 @@
 // export default PersonalizedModal;
 import React, { useMemo, useState } from 'react';
 import { FriendMemory } from '../types';
-import { X, ArrowRight, Heart, Mail } from 'lucide-react';
+import { X, ArrowRight, Mail } from 'lucide-react';
 
 interface Props {
   memory: FriendMemory;
@@ -109,11 +109,11 @@ interface Props {
 }
 
 const PersonalizedModal: React.FC<Props> = ({ memory, onClose, onComplete }) => {
-  const [step, setStep] = useState<0 | 1 | 2>(0);
+  const [step, setStep] = useState<0 | 1>(0);
 
   const handleNext = () => {
-    if (step < 2) {
-      setStep((prev) => (prev + 1) as 0 | 1 | 2);
+    if (step < 1) {
+      setStep((prev) => (prev + 1) as 0 | 1);
     } else {
       onComplete();
       onClose();
@@ -194,20 +194,7 @@ const PersonalizedModal: React.FC<Props> = ({ memory, onClose, onComplete }) => 
             </div>
           )}
 
-          {/* STEP 2: GREETING */}
-          {step === 2 && (
-            <div className="animate-fade-in flex flex-col items-center">
-              <div className="flex justify-center mb-6 animate-pulse-glow">
-                <Heart size={64} className="text-lunar-red fill-current" />
-              </div>
-              <h2 className="text-3xl sm:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-lunar-red to-yellow-500 mb-6 py-2">
-                Warmest Wishes
-              </h2>
-              <p className="text-lg sm:text-xl font-medium max-w-md leading-relaxed whitespace-pre-line break-words">
-                {memory.greeting}
-              </p>
-            </div>
-          )}
+
         </div>
 
         {/* Footer Navigation */}
@@ -217,7 +204,7 @@ const PersonalizedModal: React.FC<Props> = ({ memory, onClose, onComplete }) => 
             className="flex items-center gap-2 px-6 py-3 bg-lunar-red hover:bg-red-700 text-white rounded-full font-bold transition-all hover:gap-4 shadow-lg active:scale-[0.98]"
             type="button"
           >
-            {step === 2 ? 'Nhận quà' : 'Tiếp tục'} <ArrowRight size={18} />
+            {step === 1 ? 'Nhận quà' : 'Tiếp tục'} <ArrowRight size={18} />
           </button>
         </div>
       </div>
