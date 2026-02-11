@@ -35,11 +35,11 @@ export const MEMORIES: FriendMemory[] = [
   },
   {
     id: 5,
-    imageUrl: "https://i.ibb.co/67ds1YTy/photo-2026-01-15-17-34-47.jpg",
+    imageUrl: "https://i.ibb.co/Rpjfq0rH/a92c214e-f9a4-4f07-a1b2-b77dc921134b.jpg",
     name: "Huyền",
     letter: "Dear Huyền, I hope you earn that Outstanding Student title this year. Be more active, show what you’re capable of, and maybe this will be the year you finally stop being single.",
     greeting: "GLHF in 2026! May your wins be many.",
-    personalizedPhotoUrl: "https://i.ibb.co/67ds1YTy/photo-2026-01-15-17-34-47.jpg"
+    personalizedPhotoUrl: "https://i.ibb.co/Rpjfq0rH/a92c214e-f9a4-4f07-a1b2-b77dc921134b.jpg"
   },
   {
     id: 6,
